@@ -21,7 +21,7 @@ export const GGB_CONFIG = {
     1: 'step1.mp3',
     2: 'step2.mp3',
     3: 'step3.mp3',
-    4: 'step1.mp3',
+    4: 'step4.mp3',
   },
 
   // 因为GGB内部有 n_max=3 的滑块，这个可以不设置，但保留也无妨
