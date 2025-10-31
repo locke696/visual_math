@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GeoGebra 交互教程</title>
+  <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+  <style>
+    body { margin: 0; padding: 20px; font-family: Arial, sans-serif; }
+    #ggbApplet { margin: 0 auto; display: block; }
+    .loading { text-align: center; color: #666; }
+  </style>
+</head>
+<body>
+  <h1>GeoGebra 交互式教学</h1>
+  <div id="ggbApplet">
+    <p class="loading">加载中...</p>
+  </div>
+  <audio id="tutorial_audio" preload="auto"></audio>
+
+  <!-- 主应用入口 -->
+  <script type="module" src="js/InertiaController.js"></script>
+</body>
+</html>
