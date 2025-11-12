@@ -1,0 +1,482 @@
+--- 文件路径: L:\mathvisual_triangle\triangle_project_pro\index.html ---
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GeoGebra 交互教程平台</title>
+  <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+  <style>
+    /* --- 全局样式 --- */
+    body { 
+      margin: 0; 
+      padding: 20px; 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f9;
+    }
+    
+    .container {
+      max-width: 1536px;
+      margin: 20px auto;
+      padding: 20px 40px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      color: #2c3e50;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 10px;
+      margin-top: 0;
+    }
+
+    /* --- 导航菜单 (主页) --- */
+    #project-nav { 
+      list-style: none; 
+      padding: 20px 0; 
+    }
+    #project-nav li { 
+      margin: 15px 0; 
+    }
+    #project-nav a { 
+      font-size: 1.3em; 
+      text-decoration: none; 
+      color: #3498db;
+      font-weight: 500;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+    }
+    #project-nav a:hover {
+      color: #2980b9;
+      padding-left: 10px;
+    }
+
+    /* --- 教程容器 (详情页) --- */
+    #tutorial-container { 
+      display: none; /* 由 JS 控制显示/隐藏 */ 
+    }
+    #ggbApplet { 
+      margin: 20px auto; 
+      display: block; 
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    #back-to-nav {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 8px 15px;
+      font-size: 1em;
+      color: #fff;
+      background-color: #6c757d;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+    #back-to-nav:hover {
+      background-color: #5a6268;
+    }
+
+    /* --- 辅助样式 --- */
+    .loading, .error { 
+      text-align: center; 
+      color: #666; 
+      padding: 20px;
+    }
+    .error { 
+      color: red; 
+    }
+</style>
+</head>
+<body>
+
+  <div class="container">
+
+    <nav id="project-selector">
+      <h1>GeoGebra 交互教程</h1>
+      <h2>请选择一个教程：</h2>
+      <ul id="project-nav">
+        <!-- 列表将由 JS 动态生成 -->
+      </ul>
+    </nav>
+
+    <div id="tutorial-container">
+      <a id="back-to-nav">← 返回目录</a>
+      <h1 id="tutorial-title"></h1>
+      <div id="ggbApplet">
+        <p class="loading">加载中...</p>
+        <p class="error" style="display: none;">加载教程失败。</p>
+      </div>
+      <audio id="tutorial_audio" preload="auto"></audio>
+    </div>
+  
+  </div>
+  
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
+--- 文件路径: L:\mathvisual_triangle\triangle_project_pro\projects.js ---
+// projects.js - 所有教程项目的清单
+
+export const PROJECTS = {
+  // 项目一：惯性
+  inertia: {
+    title: '惯性现象讲解',
+    // 指向该项目专用的 GGB base64 文件
+    base64Path: './assets/ggb/inertia.ggb.base64.txt', 
+    // 该项目音频文件的根目录
+    audioBasePath: './assets/audio/inertia/',
+    // 该项目的配置，内容和以前的 GGB_CONFIG 类似
+    config: {
+      ggbParams: {
+        width: 1470, height: 647,
+        // ... 其他 GGB 参数可以保持通用 ...
+        showMenuBar: false, showToolBar: false, appName: "classic",
+      },
+      audioMapping: {
+        1: 'step1.mp3', 
+        2: 'step2.mp3', 
+        3: 'step3.mp3',
+        4: 'step4.mp3', 
+      },
+    }
+  },
+
+  // 项目二：惠更斯原理
+  huygens: {
+    title: '惠更斯三角演示',
+    base64Path: './assets/ggb/huygens.ggb.base64.txt',
+    audioBasePath: './assets/audio/huygens/',
+    config: {
+      ggbParams: {
+        width: 1470, height: 647, showMenuBar: false, 
+        showToolBar: false, appName: "classic",
+      },
+      audioMapping: {
+        1: 'step1.mp3', 
+        2: 'step2.mp3', 
+        3: 'step3.mp3',
+        4: 'step4.mp3', 
+        5: 'step5.mp3', 
+        6: 'step6.mp3', 
+        7: 'step7.mp3',
+        8: 'step8.mp3', 
+      },
+    }
+  },
+
+  // 项目三：垂直三角形
+  perp_triangle: {
+    title: '垂直三角形作全等',
+    base64Path: './assets/ggb/perp_triangle.ggb.base64.txt',
+    audioBasePath: './assets/audio/perp_triangle/',
+    config: {
+      ggbParams: {
+        width: 1470, height: 647, showMenuBar: false, 
+        showToolBar: false, appName: "classic",
+      },
+      audioMapping: {
+        1: 'step1.mp3', 
+        2: 'step2.mp3', 
+        3: 'step3.mp3',
+        4: 'step4.mp3', 
+        5: 'step5.mp3', 
+        6: 'step6.mp3', 
+        7: 'step7.mp3',
+      },
+    }
+  },
+
+  // 项目四：角平分线
+  ang_division: {
+    title: '角平分线尺规作图',
+    base64Path: './assets/ggb/ang_division.ggb.base64.txt',
+    audioBasePath: './assets/audio/ang_division/',
+    config: {
+      ggbParams: {
+        width: 1470, height: 647, showMenuBar: false, 
+        showToolBar: false, appName: "classic",
+      },
+      audioMapping: {
+        1: 'step1.mp3', 
+        2: 'step2.mp3', 
+        3: 'step3.mp3',
+        4: 'step4.mp3', 
+        5: 'step5.mp3', 
+        6: 'step6.mp3', 
+        7: 'step7.mp3',
+        8: 'step8.mp3', 
+        9: 'step9.mp3',
+      },
+    }
+  },
+  
+  //项目五：面积法求线段
+  excise_solve: {
+    title: '通过面积计算求线段长度',
+    base64Path: './assets/ggb/excise_solve.ggb.base64.txt',
+    audioBasePath: './assets/audio/excise_solve/',
+    config: {
+      ggbParams: {
+        width: 1470, height: 647, showMenuBar: false, 
+        showToolBar: false, appName: "classic",
+      },
+      audioMapping: {
+        1: 'step1.mp3', 
+        2: 'step2.mp3', 
+        3: 'step3.mp3',
+        4: 'step4.mp3', 
+        5: 'step5.mp3', 
+        6: 'step6.mp3', 
+        7: 'step7.mp3',
+        8: 'step8.mp3',        
+      },
+    }
+  },
+  //项目六：黄金分割的奇妙之旅
+  excise_solve: {
+    title: '展示主宰自然现象fibonacci数列',
+    base64Path: './assets/ggb/fibonacci_show.ggb.base64.txt',
+    audioBasePath: './assets/audio/fibonacci_show/',
+    config: {
+      ggbParams: {
+        width: 1470, height: 647, showMenuBar: false, 
+        showToolBar: false, appName: "classic",
+      },
+      audioMapping: {
+        1: 'step1.mp3', 
+        2: 'step2.mp3', 
+        3: 'step3.mp3',
+        4: 'step4.mp3', 
+        5: 'step5.mp3', 
+        6: 'step6.mp3', 
+              
+      },
+    }
+  },
+  // 你可以在这里添加更多项目...
+  // another_project: { ... }
+};
+--- 文件路径: L:\mathvisual_triangle\triangle_project_pro\js\AudioManager.js ---
+// js/AudioManager.js
+export class AudioManager {
+  constructor(audioElementId) {
+    this.audio = document.getElementById(audioElementId);
+    this.endedCallback = null;
+
+    this.audio.onended = () => {
+      if (this.endedCallback) this.endedCallback();
+    };
+  }
+
+  async play(src) {
+    this.audio.src = src;
+    try {
+      await this.audio.play();
+    } catch (e) {
+      console.error("音频播放失败:", e);
+    }
+  }
+
+  pause() {
+    this.audio.pause();
+  }
+
+  onEnded(callback) {
+    this.endedCallback = callback;
+  }
+}
+--- 文件路径: L:\mathvisual_triangle\triangle_project_pro\js\GeoGebraManager.js ---
+// js/GeoGebraManager.js
+export class GeoGebraManager {
+  constructor(containerId) {
+    this.containerId = containerId;
+    this.api = null;
+    this.updateCallback = null;
+  }
+
+  async init(base64String, ggbParams) {
+    return new Promise((resolve, reject) => {
+      const params = {
+        id: this.containerId,
+        ...ggbParams,
+        ggbBase64: base64String,
+        appletOnLoad: (api) => {
+          this.api = api;
+          api.registerUpdateListener((objName) => {
+            if (this.updateCallback) this.updateCallback(objName);
+          });
+          resolve(api);
+        }
+      };
+
+      const views = {
+        is3D: 0, AV: 1, SV: 0, CV: 0, EV2: 0,
+        CP: 0, PC: 0, DA: 0, FI: 0, macro: 0
+      };
+
+      const applet = new GGBApplet(params, '5.0', views);
+      applet.inject(this.containerId);
+    });
+  }
+
+  getValue(name) {
+    return this.api ? this.api.getValue(name) : null;
+  }
+
+  setValue(name, value) {
+    if (this.api) this.api.setValue(name, value);
+  }
+
+  startAnimation() { if (this.api) this.api.startAnimation(); }
+  stopAnimation() { if (this.api) this.api.stopAnimation(); }
+
+  onUpdate(callback) {
+    this.updateCallback = callback;
+  }
+
+  async loadBase64(filePath = './assets/ggb/current.ggb.base64.txt') {
+    const response = await fetch(filePath);
+    const text = await response.text();
+    return text.trim();
+  }
+}
+--- 文件路径: L:\mathvisual_triangle\triangle_project_pro\js\main.js ---
+// js/main.js - 平台主入口 (优化版)
+import { PROJECTS } from '../projects.js';
+// 确保这里的路径和文件名是正确的
+import { TutorialController } from './TutorialController.js'; 
+
+let currentApp = null; // 用于持有当前教程实例
+
+// --- DOM 元素获取 ---
+const navElement = document.getElementById('project-nav');
+const projectSelector = document.getElementById('project-selector');
+const tutorialContainer = document.getElementById('tutorial-container');
+const tutorialTitle = document.getElementById('tutorial-title');
+const backButton = document.getElementById('back-to-nav');
+
+// --- 视图切换函数 ---
+function showNav() {
+  projectSelector.style.display = 'block';
+  tutorialContainer.style.display = 'none';
+  // 清理可能存在的旧 GGB 实例
+  document.getElementById('ggbApplet').innerHTML = '<p class="loading">加载中...</p>';
+}
+
+function showTutorial() {
+  projectSelector.style.display = 'none';
+  tutorialContainer.style.display = 'block';
+}
+
+// --- 导航与启动逻辑 ---
+function renderNav() {
+  if (!navElement) return;
+  navElement.innerHTML = ''; // 清空旧列表
+
+  for (const projectId in PROJECTS) {
+    const project = PROJECTS[projectId];
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.textContent = project.title;
+    // 使用 dataset 存储 project id，而不是 href
+    a.dataset.projectId = projectId; 
+    
+    // 为每个链接添加点击事件监听器
+    a.addEventListener('click', (event) => {
+      event.preventDefault(); // 阻止 a 标签的默认跳转行为
+      const id = event.target.dataset.projectId;
+      launchTutorial(id);
+    });
+
+    li.appendChild(a);
+    navElement.appendChild(li);
+  }
+}
+
+function launchTutorial(projectId) {
+  const projectData = PROJECTS[projectId];
+
+  if (!projectData) {
+    console.error(`未找到项目: ${projectId}`);
+    document.getElementById('ggbApplet').innerHTML = `<p class="error">错误：找不到 ID 为 "${projectId}" 的教程。</p>`;
+    showTutorial();
+    return;
+  }
+  
+  showTutorial();
+  tutorialTitle.textContent = projectData.title;
+
+  // 实例化并启动控制器
+  currentApp = new TutorialController(projectData);
+  currentApp.init().catch(console.error);
+}
+
+
+// --- 应用启动逻辑 ---
+document.addEventListener('DOMContentLoaded', () => {
+  // 绑定返回按钮事件
+  if (backButton) {
+    backButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      // 在返回时，可能需要停止当前的音频或GGB动画
+      if (currentApp && currentApp.audioManager) {
+        currentApp.audioManager.pause();
+      }
+      showNav();
+    });
+  }
+  
+  // 初始时显示导航
+  renderNav();
+  showNav();
+});
+--- 文件路径: L:\mathvisual_triangle\triangle_project_pro\js\TutorialController.js ---
+// js/TutorialController.js - (通用的教程控制器)
+import { GeoGebraManager } from './GeoGebraManager.js';
+import { AudioManager } from './AudioManager.js';
+
+export class TutorialController {
+  // 通过构造函数接收特定项目的数据
+  constructor(projectData) {
+    this.projectData = projectData;
+    this.ggbManager = new GeoGebraManager('ggbApplet');
+    this.audioManager = new AudioManager('tutorial_audio');
+  }
+
+  async init() {
+    // 从传入的项目数据中获取路径和参数
+    const base64 = await this.ggbManager.loadBase64(this.projectData.base64Path);
+    await this.ggbManager.init(base64, this.projectData.config.ggbParams);
+
+    this.ggbManager.onUpdate((objName) => this.handleGGBUpdate(objName));
+
+    // 教程开始时，手动触发一次，播放第一步的音频 (如果存在)
+    if (this.projectData.config.audioMapping[1]) {
+      this.playAudioForStep(1);
+    }
+  }
+
+  handleGGBUpdate(objectName) {
+    if (objectName === "n") {
+      const n = this.ggbManager.getValue('n');
+      console.log(`项目 '${this.projectData.title}' 进入步骤: n = ${n}`);
+      this.playAudioForStep(n);
+    }
+  }
+
+  playAudioForStep(step) {
+    // 从项目配置中获取音频映射
+    const audioFile = this.projectData.config.audioMapping[step];
+    if (audioFile) {
+      // 拼接正确的音频文件路径
+      const audioSrc = `${this.projectData.audioBasePath}${audioFile}`;
+      this.audioManager.play(audioSrc);
+    }
+  }
+}
+
